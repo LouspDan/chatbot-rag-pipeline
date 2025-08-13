@@ -15,6 +15,7 @@ Système automatisé qui extrait des données juridiques et RH depuis des source
 Pour une vue interactive complète : [Ouvrir le diagramme](docs/architecture_diagram.html)
 
 ```
+
 ## 🛠️ Stack Technique
 
 - **Langage :** Python 3.9+
