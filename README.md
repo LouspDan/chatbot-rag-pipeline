@@ -15,12 +15,6 @@ Système automatisé qui extrait des données juridiques et RH depuis des source
 Pour une vue interactive complète : [Ouvrir le diagramme](docs/architecture_diagram.html)
 
 ```
-Sources Web (service-public.fr) → Extraction → Chunking → Embeddings → PostgreSQL+pgvector → API FastAPI → Interface Streamlit
-                                      ↑                                           ↑
-                                  Airflow                                    Recherche
-                                Orchestration                               Sémantique
-```
-
 ## 🛠️ Stack Technique
 
 - **Langage :** Python 3.9+
@@ -182,7 +176,6 @@ MIT License
 
 👉 **Contactez-moi pour discuter de vos besoins ou de vos idées de projet.**
 
-- **📊 Dashboard Interactif :** [Power BI Service](lien-vers-powerbi-service) *(Accès sur demande)*
 - **💼 Portfolio Complet :** [LinkedIn - Ésaïe  LUPEPÉLÉ](https://www.linkedin.com/in/esaie-lupepele)
 - **🔧 Autres Projets :** [Mapping Infor M3](https://github.com/LouspDan/Mapping-Infor-M3)
 - **📧 Profil Freelence  :** [Malt - Ésaïe LUPEPÉLÉ]( https://www.malt.fr/profile/esaielupepele)
