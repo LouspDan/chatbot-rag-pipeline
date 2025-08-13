@@ -8,7 +8,11 @@ Système automatisé qui extrait des données juridiques et RH depuis des source
 
 **Cas d'usage :** Assistant intelligent pour pré-qualification des demandes clients d'un cabinet de conseil.
 
-## 🏗️ Architecture
+## 🗂️ Architecture
+
+![Architecture RAG Pipeline](docs/architecture_pipeline.png)
+
+Pour une vue interactive complète : [Ouvrir le diagramme](docs/architecture_diagram.html)
 
 ```
 Sources Web (service-public.fr) → Extraction → Chunking → Embeddings → PostgreSQL+pgvector → API FastAPI → Interface Streamlit

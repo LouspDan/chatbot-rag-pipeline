@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Pipeline RAG - Données Juridiques</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin: 0;
+        }
+
+        .architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+        }
+
+        .pipeline-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .component {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 3px solid;
+            text-align: center;
+            min-width: 180px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .component.source { border-color: #e74c3c; background: linear-gradient(135deg, #fff5f5, #ffe8e8); }
+        .component.extraction { border-color: #f39c12; background: linear-gradient(135deg, #fffbf0, #fff3e0); }
+        .component.processing { border-color: #9b59b6; background: linear-gradient(135deg, #f8f5ff, #f0ebff); }
+        .component.storage { border-color: #27ae60; background: linear-gradient(135deg, #f0fff4, #e8f8f0); }
+        .component.api { border-color: #3498db; background: linear-gradient(135deg, #f0f8ff, #e3f2ff); }
+        .component.interface { border-color: #2ecc71; background: linear-gradient(135deg, #f0fff4, #e8f8f0); }
+        .component.orchestration { border-color: #e67e22; background: linear-gradient(135deg, #fff8f0, #ffebdb); }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .component h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .component p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .arrow {
+            font-size: 2em;
+            color: #7f8c8d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orchestration-connection {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #e67e22;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+            z-index: 10;
+        }
+
+        .search-connection {
+            position: absolute;
+            bottom: -20px;
+            right: 20%;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .flow-indicators {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #2c3e50;
+            display: block;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .tech-stack {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .tech-stack h3 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tech-category {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .tech-category h4 {
+            margin-top: 0;
+            color: #3498db;
+            font-size: 1.2em;
+        }
+
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+
+        .tech-list li {
+            padding: 5px 0;
+            color: #ecf0f1;
+            font-size: 0.95em;
+        }
+
+        .tech-list li:before {
+            content: "⚡";
+            margin-right: 8px;
+            color: #f39c12;
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #9b59b6);
+            top: 50%;
+            z-index: 1;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .pipeline-row {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .component {
+                min-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>🤖 Architecture Pipeline RAG</h1>
+            <p>Système automatisé d'extraction et d'ingestion de données juridiques françaises</p>
+        </div>
+
+        <div class="architecture">
+            <!-- Pipeline principal -->
+            <div class="pipeline-row">
+                <div class="component source">
+                    <span class="icon">🌐</span>
+                    <h3>Sources Web</h3>
+                    <p><strong>service-public.fr</strong><br>
+                    Fiches pratiques entreprises<br>
+                    ~21 fiches/minute</p>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="component extraction">
+                    <span class="icon">🔍</span>
+                    <h3>Extraction</h3>
+                    <p><strong>Scraping intelligent</strong><br>
+                    Classification automatique<br>
+                    95% précision domaines</p>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="component processing">
+                    <span class="icon">✂️</span>
+                    <h3>Chunking</h3>
+                    <p><strong>Découpage sémantique</strong><br>
+                    150-300 caractères<br>
+                    Overlap intelligent</p>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="component processing">
+                    <span class="icon">🧠</span>
+                    <h3>Embeddings</h3>
+                    <p><strong>Sentence Transformers</strong><br>
+                    Vecteurs 384 dimensions<br>
+                    Recherche sémantique</p>
+                </div>
+            </div>
+
+            <!-- Deuxième ligne -->
+            <div class="pipeline-row">
+                <div class="component storage">
+                    <span class="icon">🗄️</span>
+                    <h3>PostgreSQL + pgvector</h3>
+                    <p><strong>Base vectorielle</strong><br>
+                    Index IVFFLAT optimisé<br>
+                    Recherche cosine &lt;3s</p>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="component api">
+                    <span class="icon">⚡</span>
+                    <h3>API FastAPI</h3>
+                    <p><strong>Endpoints REST</strong><br>
+                    Recherche sémantique<br>
+                    Documentation OpenAPI</p>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="component interface">
+                    <span class="icon">🖥️</span>
+                    <h3>Interface Streamlit</h3>
+                    <p><strong>Chatbot démo</strong><br>
+                    Interface conversationnelle<br>
+                    Pré-qualification clients</p>
+                </div>
+            </div>
+
+            <!-- Connexions orchestration et recherche -->
+            <div class="orchestration-connection">
+                <span style="font-size: 1.2em;">🔄</span> Airflow Orchestration
+            </div>
+
+            <div class="search-connection">
+                🎯 Recherche Sémantique
+            </div>
+        </div>
+
+        <!-- Statistiques de performance -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">21</span>
+                <div class="stat-label">Fiches/minute<br>extraction</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">95%</span>
+                <div class="stat-label">Précision<br>classification</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">&lt;3s</span>
+                <div class="stat-label">Temps de<br>recherche</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">384</span>
+                <div class="stat-label">Dimensions<br>embeddings</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">250</span>
+                <div class="stat-label">Caractères<br>par chunk</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">∞</span>
+                <div class="stat-label">Documents<br>scalabilité</div>
+            </div>
+        </div>
+
+        <!-- Stack technique -->
+        <div class="tech-stack">
+            <h3>🛠️ Stack Technique Complète</h3>
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h4>🐍 Backend & Processing</h4>
+                    <ul class="tech-list">
+                        <li>Python 3.9+</li>
+                        <li>BeautifulSoup4</li>
+                        <li>Sentence Transformers</li>
+                        <li>Pandas</li>
+                        <li>spaCy (français)</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4>🗃️ Base de Données</h4>
+                    <ul class="tech-list">
+                        <li>PostgreSQL 15</li>
+                        <li>pgvector extension</li>
+                        <li>Index IVFFLAT</li>
+                        <li>Recherche cosine</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4>🔄 Orchestration</h4>
+                    <ul class="tech-list">
+                        <li>Apache Airflow</li>
+                        <li>DAGs automatisés</li>
+                        <li>Monitoring intégré</li>
+                        <li>Gestion erreurs</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4>🌐 API & Interface</h4>
+                    <ul class="tech-list">
+                        <li>FastAPI</li>
+                        <li>Streamlit</li>
+                        <li>OpenAPI/Swagger</li>
+                        <li>Interface responsive</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4>☁️ Infrastructure</h4>
+                    <ul class="tech-list">
+                        <li>Docker & Compose</li>
+                        <li>Google Cloud Platform</li>
+                        <li>Cloud Run</li>
+                        <li>Cloud SQL</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h4>🧪 Qualité & DevOps</h4>
+                    <ul class="tech-list">
+                        <li>Pytest</li>
+                        <li>Git versioning</li>
+                        <li>CI/CD Pipeline</li>
+                        <li>Documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
