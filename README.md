@@ -60,7 +60,7 @@ chatbot-rag-pipeline/
 ### Setup
 ```bash
 # Cloner le repository
-git clone https://github.com/[username]/chatbot-rag-pipeline.git
+git clone https://github.com/LouspDan/chatbot-rag-pipeline.git
 cd chatbot-rag-pipeline
 
 # Installer les dépendances
@@ -143,9 +143,48 @@ python test_text_processor.py
 
 ## 📜 Licence
 
-MIT License - Voir fichier LICENSE pour détails
+MIT License 
 
 ---
 
 **Status :** 🔄 En développement actif  
 **Dernière mise à jour :** Août 2025
+
+---
+
+## 🧠 Compétences mobilisées
+
+### 🔧 Data Engineering
+- Pipelines ETL orchestrés avec Airflow
+- Stockage vectoriel optimisé pour la recherche sémantique
+- API REST avec FastAPI
+
+### 📊 Data Analytics
+- Visualisation interactive avec Streamlit
+- Structuration des données pour exploration intelligente
+
+### 🤖 Automatisation & IA
+- Embeddings pour NLP et recherche sémantique
+- Orchestration des tâches et monitoring
+
+---
+
+## 💼 Applications concrètes
+- Moteur de recherche intelligent sur des contenus juridiques
+- Automatisation de la veille réglementaire
+- Interface de consultation pour juristes, citoyens ou analystes
+- Base pour assistants IA ou chatbots spécialisés en droit français
+
+---
+
+### 🚀 Disponible pour des missions similaires
+**data engineering**, **automatisation**, **analyse de données** ou **intégration de solutions IA**.  
+
+👉 **Contactez-moi pour discuter de vos besoins ou de vos idées de projet.**
+
+- **📊 Dashboard Interactif :** [Power BI Service](lien-vers-powerbi-service) *(Accès sur demande)*
+- **💼 Portfolio Complet :** [LinkedIn - Ésaïe  LUPEPÉLÉ](https://www.linkedin.com/in/esaie-lupepele)
+- **🔧 Autres Projets :** [Mapping Infor M3](https://github.com/LouspDan/Mapping-Infor-M3)
+- **📧 Profil Freelence  :** [Malt - Ésaïe LUPEPÉLÉ]( https://www.malt.fr/profile/esaielupepele)
+- **📧 Contact Projet :** esaie.lupepele@gmail.com
+
