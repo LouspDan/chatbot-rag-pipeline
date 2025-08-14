@@ -77,8 +77,8 @@ python test_service_public.py
 
 ### 🔄 Phase 2 - Processing (En cours)
 - [x] Chunking intelligent avec overlap
-- [ ] Génération embeddings automatisée
-- [ ] Pipeline complet extraction → vectorisation
+- [x] Génération embeddings automatisée
+- [x] Pipeline complet extraction → vectorisation
 
 ### 📅 Phase 3 - Orchestration (Planifié)
 - [ ] DAGs Airflow pour automation
