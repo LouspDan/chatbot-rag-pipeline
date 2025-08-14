@@ -75,12 +75,12 @@ python test_service_public.py
 - [x] Base PostgreSQL + pgvector opérationnelle
 - [x] Tests de recherche vectorielle
 
-### 🔄 Phase 2 - Processing (En cours)
+### ✅ Phase 2 - Processing (En cours)
 - [x] Chunking intelligent avec overlap
 - [x] Génération embeddings automatisée
 - [x] Pipeline complet extraction → vectorisation
 
-### 📅 Phase 3 - Orchestration (Planifié)
+### 🔄 Phase 3 - Orchestration (Planifié)
 - [ ] DAGs Airflow pour automation
 - [ ] Monitoring et alerting
 - [ ] Gestion des erreurs et retry
